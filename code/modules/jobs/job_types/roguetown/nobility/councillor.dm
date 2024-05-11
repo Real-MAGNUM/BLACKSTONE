@@ -5,12 +5,13 @@
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	allowed_races = list("Humen",
-	"Elf",
-	"Half-Elf",
-	"Dwarf",
-	"Tiefling",
-	"Aasimar"
+	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Dwarf",
+		"Aasimar",
 	)
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_COUNCILLOR
@@ -18,7 +19,7 @@
 	whitelist_req = FALSE
 	outfit = /datum/outfit/job/roguetown/councillor
 	give_bank_account = 40
-	min_pq = 5
+	min_pq = 2
 
 /datum/outfit/job/roguetown/councillor/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -35,8 +36,8 @@
 	cloak = /obj/item/clothing/cloak/stabard/surcoat/councillor
 	backpack_contents = list(/obj/item/keyring/councillor = 1)
 	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 5, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)

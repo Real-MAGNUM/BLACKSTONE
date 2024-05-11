@@ -1,14 +1,14 @@
 
 /datum/job/roguetown/priest
 	title = "Priest"
+	f_title = "Priestess"
 	flag = PRIEST
 	department_flag = CHURCHMEN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = JCOLOR_CHURCH
-	f_title = "Priestess"
-	allowed_races = list("Humen","Humen","Elf", "Dwarf","Half-Elf",	"Aasimar")
+	allowed_races = list("Humen", "Aasimar")
 	allowed_patrons = list("Astrata")
 	tutorial = "The Divine is all that matters in a world of the immoral. The Weeping God left his children to rule over us mortals and you will preach their wisdom to any who still heed their will. The faithless are growing in number, it is up to you to shepard them to a Gods-fearing future."
 	whitelist_req = FALSE
@@ -16,7 +16,7 @@
 
 	display_order = JDO_PRIEST
 	give_bank_account = 115
-	min_pq = -4
+	min_pq = 2
 
 /datum/outfit/job/roguetown/priest/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -44,9 +44,9 @@
 			H.mind.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
 		H.change_stat("strength", -1)
 		H.change_stat("intelligence", 2)
-		H.change_stat("constitution", -2)
+		H.change_stat("constitution", -1)
 		H.change_stat("endurance", 1)
-		H.change_stat("speed", -2)
+		H.change_stat("speed", -1)
 	var/datum/devotion/cleric_holder/C = new /datum/devotion/cleric_holder(H, H.PATRON) // This creates the cleric holder used for devotion spells
 	C.holder_mob = H
 	H.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
@@ -75,30 +75,31 @@
 			continue
 		if(!istype(HU.head, /obj/item/clothing/head/roguetown/crown/serpcrown))
 			continue
+		
+		//Abdicate previous King
 		for(var/mob/living/carbon/human/HL in GLOB.human_list)
 			if(HL.mind)
-				if(HL.mind.assigned_role == "King")
-					HL.mind.assigned_role = "Ex-King"
+				if(HL.mind.assigned_role == "King" || HL.mind.assigned_role == "Queen Consort")
+					HL.mind.assigned_role = "Towner" //So they don't get the innate traits of the king
+			//would be better to change their title directly, but that's not possible since the title comes from the job datum
 			if(HL.job == "King")
-				HL.job = "Ex-King"
-			if(HL.mind)
-				if(HL.mind.assigned_role == "Queen")
-					HL.mind.assigned_role = "Ex-Queen"
-			if(HL.job == "Queen")
-				HL.job = "Ex-Queen"
+				HL.job = "King Emeritus"
+			if(HL.job == "Queen Consort")
+				HL.job = "Queen Dowager"
+
+		//Coronate new King (or Queen)
+		HU.mind.assigned_role = "King"
+		HU.job = "King"
 		switch(HU.gender)
 			if("male")
-				HU.mind.assigned_role = "King"
-				HU.job = "King"
+				SSticker.rulertype = "King"
 			if("female")
-				HU.mind.assigned_role = "Queen"
-				HU.job = "Queen"
+				SSticker.rulertype = "Queen"
 		SSticker.rulermob = HU
 		var/dispjob = mind.assigned_role
 		GLOB.badomens -= "nolord"
 		say("By the authority of the gods, I pronounce you Ruler of all Rockhill!")
 		priority_announce("[real_name] the [dispjob] has named [HU.real_name] the inheritor of ROGUETOWN!", title = "Long Live [HU.real_name]!", sound = 'sound/misc/bell.ogg')
-		return
 
 /mob/living/carbon/human/proc/churchexcommunicate()
 	set name = "Curse"

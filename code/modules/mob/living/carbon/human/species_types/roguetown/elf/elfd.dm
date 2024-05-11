@@ -3,7 +3,7 @@
 
 /datum/species/elf/dark
 	name = "Dark Elf"
-	id = "elf"
+	id = "elfd"
 	desc = "<b>Dark Elf</b><br>\
 	Elves, are a generic term for tall, pointy-eared humanoids\
     Of whom trace their original heritage to the ancient mysterious Snow Elves. \
@@ -80,18 +80,16 @@
 	. = ..()
 	C.grant_language(/datum/language/common)
 */
-/datum/species/elf/dark/check_roundstart_eligible()
-	return TRUE
 
 /datum/species/elf/dark/get_skin_list()
 	return list(
-	"Commorah" = "9796a9",
-	"Gloomhaven" = "897489",
-	"Darkpila" = "938f9c",
-	"Sshanntynlan" = "737373",
-	"Llurth Dreir" = "6a616d",
-	"Tafravma" = "5f5f70",
-	"Yuethindrynn" = "2F2F38",
+		"Commorah" = SKIN_COLOR_COMMORAH,
+		"Gloomhaven" = SKIN_COLOR_GLOOMHAVEN,
+		"Darkpila" = SKIN_COLOR_DARKPILA,
+		"Sshanntynlan" = SKIN_COLOR_SSHANNTYNLAN,
+		"Llurth Dreir" = SKIN_COLOR_LLURTH_DREIR,
+		"Tafravma" = SKIN_COLOR_TAFRAVMA,
+		"Yuethindrynn" = SKIN_COLOR_YUETHINDRYNN,
 	)
 
 /datum/species/elf/dark/get_hairc_list()

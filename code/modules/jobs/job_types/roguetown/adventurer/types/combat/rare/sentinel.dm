@@ -4,12 +4,14 @@
 	name = "Sentinel"
 	tutorial = "Elvish Sentinels are a specialized group of Rangers known for their mastery of bow and blade alike; their arrows are said to contain poisons from the native trees"
 	allowed_sexes = list("male", "female")
-	allowed_races = list("Elf",
-	 "Half-Elf")
+	allowed_races = list(
+		"Elf",
+		"Half-Elf",
+	)
 	outfit = /datum/outfit/job/roguetown/adventurer/sentinal
 	maxchosen = 5
 	pickprob = 50
-
+	traits_applied = list(RTRAIT_MEDIUMARMOR)
 
 /datum/outfit/job/roguetown/adventurer/sentinal/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -43,5 +45,4 @@
 	beltl = /obj/item/quiver/Parrows
 	H.change_stat("perception", 5)
 	H.change_stat("endurance", 2)
-	ADD_TRAIT(H, RTRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	H.ambushable = FALSE

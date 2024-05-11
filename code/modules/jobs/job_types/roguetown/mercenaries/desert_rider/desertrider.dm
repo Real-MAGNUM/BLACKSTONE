@@ -2,7 +2,13 @@
 	title = "Desert Rider Mercenary"
 	flag = DESERT_RIDER
 	allowed_sexes = list("male", "female")
-	allowed_races = list("Humen", "Half-Elf", "Tiefling", "Dark Elf")
+	allowed_races = list(
+		"Humen", 
+		"Half-Elf", 
+		"Tiefling", 
+		"Argonian", 
+		"Dark Elf",
+	)
 	tutorial = "Blood, like the desert sand, stains your hands, a crimson testament to the gold you covet. A desert rider, renowned mercenary of the far east, your scimitar whispers tales of centuries-old tradition. Your loyalty, a fleeting mirage in the shifting sands, will yield to the allure of fortune."
 	outfit = /datum/outfit/job/roguetown/mercenary/desert_rider
 	display_order = JDO_DESERT_RIDER
@@ -12,7 +18,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	give_bank_account = 3
-	min_pq = -9
+	min_pq = 2 //good fragger role
 
 /datum/outfit/job/roguetown/mercenary/desert_rider/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -26,7 +32,22 @@
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
 	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	neck = /obj/item/clothing/neck/roguetown/shalal
-	
+
+	var/obj/item/flashlight/flare/torch/T = new()
+	T.spark_act()
+	H.put_in_hands(T,forced=TRUE)
+
+	// A quick check to make sure the desert rider is canonical
+	var/static/list/canonical_heritage_check_list = list(
+	SKIN_COLOR_GIZA,
+	SKIN_COLOR_LALVESTINE,
+	SKIN_COLOR_SHALVISTINE,
+	SKIN_COLOR_EBON
+	)
+	if(ishumannorthern(H) && !(H.skin_tone in canonical_heritage_check_list))
+		H.skin_tone = pick(canonical_heritage_check_list)
+		H.update_body()
+
 	if(H.gender == FEMALE)
 		var/acceptable = list("Tomboy", "Bob", "Curly Short")
 		if(!(H.hairstyle in acceptable))
@@ -53,3 +74,6 @@
 		H.change_stat("perception", 2)
 		H.change_stat("speed", 3)
 	ADD_TRAIT(H, RTRAIT_MEDIUMARMOR, TRAIT_GENERIC)
+
+
+	H.cmode_music = 'sound/music/combat_desertrider.ogg'

@@ -23,6 +23,7 @@
 	pickup_sound = 'sound/foley/equip/swordsmall2.ogg'
 	throwforce = 12
 	wdefense = 3
+	wbalance = 1
 	thrown_bclass = BCLASS_CUT
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
@@ -45,24 +46,25 @@
 	clickcd = 10
 
 /datum/intent/dagger/thrust
-	name = "stab"
+	name = "thrust"
 	icon_state = "instab"
-	attack_verb = list("stabs")
+	attack_verb = list("thrusts")
 	animname = "stab"
 	blade_class = BCLASS_STAB
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
-	penfactor = 20
+	penfactor = 40
 	chargetime = 0
 	clickcd = 8
 
 /datum/intent/dagger/thrust/pick
-	name = "thrust"
+	name = "icepick stab"
+	icon_state = "inpick"
 	attack_verb = list("stabs", "impales")
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
-	penfactor = 50
-	clickcd = CLICK_CD_MELEE
-	swingdelay = 0
-	blade_class = BCLASS_PICK
+	penfactor = 80
+	clickcd = 14
+	swingdelay = 12
+	damfactor = 1.1
 
 /obj/item/rogueweapon/huntingknife/getonmobprop(tag)
 	. = ..()
@@ -84,7 +86,7 @@
 	penfactor = 10
 	damfactor = 1.5
 	swingdelay = 5
-	clickcd = CLICK_CD_MELEE
+	clickcd = 10
 
 /obj/item/rogueweapon/huntingknife/cleaver
 	force = 15
@@ -151,7 +153,7 @@
 	penfactor = 30
 
 /obj/item/rogueweapon/huntingknife/idagger
-	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut)
+	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut, /datum/intent/dagger/thrust/pick)
 	force = 15
 	max_integrity = 100
 	name = "Iron dagger"
@@ -213,6 +215,7 @@
 	wdefense = 1
 
 /obj/item/rogueweapon/huntingknife/elvish
+	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut)
 	name = "elvish dagger"
 	desc = "This beautiful dagger is of intricate, elvish design. Sharper, too."
 	force = 19

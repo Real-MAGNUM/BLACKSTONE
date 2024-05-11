@@ -7,11 +7,15 @@
 	spawn_positions = 0
 
 	allowed_sexes = list("male")
-	allowed_races = list("Humen",
-	"Humen",
-	"Elf",
-	"Elf",
-	"Half-Elf"
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Dwarf",
+		"Tiefling",
+		"Argonian",
+		"Dark Elf",
+		"Aasimar"
 	)
 
 	tutorial = "The Nightmaster is technically a noble. Owner of the Whitevein Lounge, a decaying bathhouse converted into a den of low-lifes. A troublemaking rake that the others hate to tolerate."
@@ -20,6 +24,7 @@
 	outfit = /datum/outfit/job/roguetown/nightman
 	display_order = JDO_NIGHTMAN
 	give_bank_account = TRUE
+	min_pq = -10
 
 /datum/outfit/job/roguetown/nightman/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -43,9 +48,9 @@
 		H.change_stat("strength", 1)
 		H.change_stat("intelligence", -1)
 	if(H.dna?.species)
-		if(H.dna.species.id == "human")
-			H.dna.species.soundpack_m = new /datum/voicepack/male/zeth()
-		if(H.dna.species.id == "elf")
+		if(iself(H) || ishalfelf(H))
 			armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
-		if(H.dna.species.id == "dwarf")
+		else if(ishumannorthern(H))
+			H.dna.species.soundpack_m = new /datum/voicepack/male/zeth()
+		else if(isdwarf(H))
 			armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor

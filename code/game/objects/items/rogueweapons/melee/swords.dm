@@ -219,6 +219,7 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	associated_skill = /datum/skill/combat/swords
+	max_integrity = 9999
 	throwforce = 15
 	thrown_bclass = BCLASS_CUT
 	dropshrink = 0.75
@@ -337,10 +338,11 @@
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
 	penfactor = 10
 	swingdelay = 8
+	damfactor = 0.8
 
 /obj/item/rogueweapon/sword/long/exe
 	possible_item_intents = list(/datum/intent/sword/strike)
-	gripped_intents = list(/datum/intent/sword/chop)
+	gripped_intents = list(/datum/intent/axe/chop)
 	icon_state = "exe"
 	name = "execution sword"
 	desc = ""
